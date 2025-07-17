@@ -362,8 +362,8 @@ class Window:
         try:
             # PyInstaller temporary folder
             base_path = sys._MEIPASS
-        # In cases where the .py file is run instead of the app (_MEIPASS doesn't exist)
-        except Exception:
+        # # In cases where the .py file is run instead of the app (_MEIPASS doesn't exist)
+        except AttributeError:
             base_path = os.path.abspath(".")
         # The absolute path of the resource passed in is returned
         return os.path.join(base_path, relative_path)

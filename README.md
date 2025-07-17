@@ -1,4 +1,4 @@
-# TIME/STOP
+# TIME:STOP
 
 A timer/stopwatch application made with Python that can alternate between the two modes at the user's desire.
 

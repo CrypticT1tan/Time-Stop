@@ -17,7 +17,7 @@ pip install pyinstaller
 To build the executable file, run the command below in your terminal in the directory with the project files:
 
 ```bash
-pyinstaller --windowed --onefile --add-data "timer_icon.png:." --add-data "stopwatch_icon.png:." --add-data "timer_alarm.mp3:." main.py --name <insert your desired executable app name here>
+pyinstaller --windowed --onefile --add-data "timer_icon.png:." --add-data "stopwatch_icon.png:." --add-data "timer_alarm.mp3:." main.py --name "<insert your desired executable app name here>"
 ```
 
 Open up the dist file to find a executable file with your desired name, and open it.

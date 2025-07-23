@@ -1,26 +1,37 @@
-# COLOR PALETTE
+# TIME:STOP
 
-Eyedropper application that allows you to extract colors and hex codes from any image file on your computer.
+A timer/stopwatch application made with Python that can alternate between the two modes at the user's desire.
 
 ## Installation
 Use package manager pip to install the following:
 
 ```bash
 pip install tkinter
+pip install playsound3
 pip install pillow
+pip install pyinstaller
 ```
 
 ## Usage
+
 To build the executable file, run the command below in your terminal in the directory with the project files:
 
 ```bash
-pyinstaller main.py --hidden-import=tkinter -y --icon=palette.icns --onefile --windowed --add-data="start.png:." --name "Color Palette"
+pyinstaller --windowed --onefile --add-data "timer_icon.png:." --add-data "stopwatch_icon.png:." --add-data "timer_alarm.mp3:." main.py --name <insert your desired executable app name here>
 ```
 
-To start, click the "Browse Image File" button to open up your computer's file system. 
-Then, select the image file you want to open. Your image will be displayed on the canvas.
-Click anywhere on the image to get the hex code and color of the clicked pixel.
-You can hold up to 8 hex codes/colors at once.
+Open up the dist file to find a executable file with your desired name, and open it.
+
+The Timer Mode consists of a entry box to input a time in HH:MM:SS format (HH=hours, MM=minutes, SS=seconds), a timer text display, and two buttons labeled "Reset" and "Start".
+The red "Reset" button stops the timer and resets the timer display to the current input inside the entry box.
+The green "Start" button will start the timer countdown based on the entry box input/time remaining in the display and change into a red "Stop" button when clicked.
+The red "Stop" button will pause the timer and changes back to the green "Start button".
+
+The Stopwatch Mode consists of a stopwatch display in MM:SS.CSCS format (MM=minutes, SS=seconds, CSCS=centiseconds) and two buttons labeled "Reset" and "Start".
+The red "Reset" button stops the stopwatch and resets it back to 00:00.00. 
+The green "Start" button works similarly to the one in the Timer Mode, except it triggers an addition of time rather than a subtraction.
+
+A dropdown menu at the bottom is provided to switch between the Timer and Stopwatch Modes.
 
 ## Contact
 For any questions, contact me at gavinkiosco@gmail.com or CrypticT1tan on GitHub.

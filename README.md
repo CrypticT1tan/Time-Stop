@@ -14,6 +14,14 @@ pip install pyinstaller
 
 ## Usage
 
+To build the executable file, run the command below:
+
+```bash
+pyinstaller --windowed --onefile --add-data "timer_icon.png:." --add-data "stopwatch_icon.png:." --add-data "timer_alarm.mp3:." main.py --name <insert your desired executable app name here>
+```
+
+Open up the dist file to find a executable file with your desired name, and open it.
+
 The Timer Mode consists of a entry box to input a time in HH:MM:SS format (HH=hours, MM=minutes, SS=seconds), a timer text display, and two buttons labeled "Reset" and "Start".
 The red "Reset" button stops the timer and resets the timer display to the current input inside the entry box.
 The green "Start" button will start the timer countdown based on the entry box input/time remaining in the display and change into a red "Stop" button when clicked.

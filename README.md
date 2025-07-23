@@ -9,6 +9,7 @@ Use package manager pip to install the following:
 pip install tkinter
 pip install playsound3
 pip install pillow
+pip install pyinstaller
 ```
 
 ## Usage

@@ -1,3 +1,0 @@
-([('main',
-   '/Users/gavinchen/Desktop/Worthy_Projects/timer-stopwatch/dist/main',
-   'EXECUTABLE')],)

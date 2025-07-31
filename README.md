@@ -1,4 +1,4 @@
-# TIME/STOP
+# TIME:STOP
 
 A timer/stopwatch application made with Python that can alternate between the two modes at the user's desire.
 
@@ -6,12 +6,20 @@ A timer/stopwatch application made with Python that can alternate between the tw
 Use package manager pip to install the following:
 
 ```bash
-pip install tkinter
 pip install playsound3
 pip install pillow
+pip install pyinstaller
 ```
 
 ## Usage
+
+To build the executable file, use the terminal to go into the same directory as the main.py file and run the command below:
+
+```bash
+pyinstaller main.py --onefile --windowed --add-data "../assets:assets" --icon=../assets/clock.icns --name "<Desired Name of Executable>"
+```
+
+Open up the dist file to find a executable file with your desired name, and open it.
 
 The Timer Mode consists of a entry box to input a time in HH:MM:SS format (HH=hours, MM=minutes, SS=seconds), a timer text display, and two buttons labeled "Reset" and "Start".
 The red "Reset" button stops the timer and resets the timer display to the current input inside the entry box.
@@ -27,4 +35,5 @@ A dropdown menu at the bottom is provided to switch between the Timer and Stopwa
 ## Contact
 For any questions, contact me at gavinkiosco@gmail.com or CrypticT1tan on GitHub.
 
-Icon made by Freepik from www.flaticon.com
+## Attribution
+Timer and Stopwatch Icons made by Freepik from www.flaticon.com

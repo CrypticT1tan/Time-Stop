@@ -37,3 +37,4 @@ For any questions, contact me at gavinkiosco@gmail.com or CrypticT1tan on GitHub
 
 ## Attribution
 Timer and Stopwatch Icons made by Freepik from www.flaticon.com
+Project inspired by the Pomodoro Timer program from Angela Yu's 100 Days of Code bootcamp on Udemy

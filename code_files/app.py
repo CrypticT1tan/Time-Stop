@@ -15,16 +15,17 @@ class TimeApp:
         self.title_size = 30
         self.display_size = 45
         self.button_size = 15
-        self.window_color = "#f0b8b8"
+        self.timer_color = "#f0b8b8"
+        self.stopwatch_color = "#D1FFBD"
 
         # Creating main window
         self.window = tk.Tk()
-        self.window.config(bg="#f0b8b8")
+        self.window.config(bg=self.timer_color)
         self.window.title("Timer")
 
         # Setting up title Label
         self.title = tk.Label(text="TIMER", fg="red", font=(self.font, self.title_size, "bold"),
-                           width=30, bg=self.window_color)
+                           width=30, bg=self.timer_color)
         self.title.grid(row=0, column=0, columnspan=2)
 
         # Creating the Timer Icon Image
@@ -38,14 +39,14 @@ class TimeApp:
         self.stopwatch_icon = ImageTk.PhotoImage(self.stopwatch_icon_image_resized)
 
         # Creating the Canvas for the Icons
-        self.canvas = tk.Canvas(width=64, height=64, bg=self.window_color,
-                                   highlightbackground=self.window_color)
+        self.canvas = tk.Canvas(width=64, height=64, bg=self.timer_color,
+                                   highlightbackground=self.timer_color)
         self.canvas.grid(row=1, column=0, columnspan=2)
         self.canvas.create_image(32, 32, image=self.timer_icon)
 
         # Creating the Entry Box for Timer
         self.timer_entry = tk.Entry(font=(self.font, self.button_size), justify="center",
-                                 highlightbackground=self.window_color)
+                                 highlightbackground=self.timer_color)
         self.timer_entry.grid(row=2, column=0, columnspan=2)
         self.timer_entry.insert(0, "Enter time (HH:MM:SS)")
 
@@ -55,18 +56,18 @@ class TimeApp:
 
         # Creating the Display for the Timer
         self.display = tk.Label(text="00:00:00", font=(self.font, self.display_size),
-                                   bg=self.window_color)
+                                   bg=self.timer_color)
         self.display.grid(row=3, column=0, columnspan=2)
 
         # Creating the Reset Button for Timer
         self.reset_button = tk.Button(text="Reset", font=(self.font, self.button_size), fg="red",
-                                   command=self.timer_reset, highlightbackground=self.window_color)
+                                   command=self.timer_reset, highlightbackground=self.timer_color)
         self.reset_button.grid(row=4, column=0)
 
         # Creating the Start/Stop Button for Timer
         self.startstop_button = tk.Button(text="Start", font=(self.font, self.button_size),
                                              fg="green", command=self.timer_start,
-                                             highlightbackground=self.window_color)
+                                             highlightbackground=self.timer_color)
         self.startstop_button.grid(row=4, column=1)
 
         # Creating the Dropdown Menu to Switch Tools
@@ -76,6 +77,7 @@ class TimeApp:
         self.dropdown = tk.OptionMenu(self.window, self.option, *self.options, command=self.switch_mode)
         # *self.options unpacks a list (options) as individual arguments
         self.dropdown.grid(row=5, column=0, columnspan=2)
+        self.dropdown.config(bg=self.timer_color)
 
         # Used later in program for timer display and alarm sound respectively
         self.timer = None
@@ -93,18 +95,17 @@ class TimeApp:
         if op == "Timer" and self.title.cget("text") != "TIMER":
             # Changing the window and title to fit the mode
             self.window.title("Timer")
-            self.window_color = "#f0b8b8"
-            self.window.config(bg=self.window_color)
-            self.title.config(text="TIMER", fg="red", bg=self.window_color)
+            self.window.config(bg=self.timer_color)
+            self.title.config(text="TIMER", fg="red", bg=self.timer_color)
             # Destroying the previous canvas, then recreating it
             self.canvas.destroy()
-            self.canvas = tk.Canvas(width=64, height=64, bg=self.window_color,
-                                 highlightbackground=self.window_color)
+            self.canvas = tk.Canvas(width=64, height=64, bg=self.timer_color,
+                                 highlightbackground=self.timer_color)
             self.canvas.grid(row=1, column=0, columnspan=2)
             self.canvas.create_image(32, 32, image=self.timer_icon)
             # Creating the Entry Box for Timer
             self.timer_entry = tk.Entry(font=(self.font, self.button_size), justify="center",
-                                     highlightbackground=self.window_color)
+                                     highlightbackground=self.timer_color)
             self.timer_entry.grid(row=2, column=0, columnspan=2)
             self.timer_entry.insert(0, "Enter time (HH:MM:SS)")
             # When the timer is reset, these bound events will allow the cursor to exit the entry box
@@ -116,33 +117,33 @@ class TimeApp:
                 self.window.after_cancel(self.stopwatch)
             except ValueError:
                 pass
-            self.display.config(text="00:00:00", bg=self.window_color)
+            self.display.config(text="00:00:00", bg=self.timer_color)
             self.display.grid(row=3, column=0, columnspan=2)
             # Reconfiguring the Reset Button for Timer
             self.reset_button.config(text="Reset", font=(self.font, self.button_size), fg="red",
-                                       command=self.timer_reset, highlightbackground=self.window_color)
+                                       command=self.timer_reset, highlightbackground=self.timer_color)
             self.reset_button.grid(row=4, column=0)
             # Reconfiguring the Start/Stop Button for Timer
             self.startstop_button.config(text="Start",
                                            fg="green", command=self.timer_start,
-                                           highlightbackground=self.window_color)
+                                           highlightbackground=self.timer_color)
             self.startstop_button.grid(row=4, column=1)
+            self.dropdown.config(bg=self.timer_color)
         # Changing to stopwatch
         elif op == "Stopwatch" and self.title.cget("text") != "STOPWATCH":
             # Changing the window and title to fit the mode
             self.window.title("Stopwatch")
-            self.window_color = "#D1FFBD"
-            self.window.config(bg=self.window_color)
-            self.title.config(text="STOPWATCH", fg="green", bg=self.window_color)
+            self.window.config(bg=self.stopwatch_color)
+            self.title.config(text="STOPWATCH", fg="green", bg=self.stopwatch_color)
             # Destroying the previous canvas, then recreating it
             self.canvas.destroy()
-            self.canvas = tk.Canvas(width=64, height=64, bg=self.window_color,
-                                 highlightbackground=self.window_color)
+            self.canvas = tk.Canvas(width=64, height=64, bg=self.stopwatch_color,
+                                 highlightbackground=self.stopwatch_color)
             self.canvas.grid(row=1, column=0, columnspan=2)
             self.canvas.create_image(32, 32, image=self.stopwatch_icon)
             # Deleting Timer Entry
             self.timer_entry.destroy()
-            self.display.config(text="00:00.00", bg=self.window_color)
+            self.display.config(text="00:00.00", bg=self.stopwatch_color)
             self.display.grid(row=2, column=0, columnspan=2)
             # Reconfiguring the Reset Button for Stopwatch
             # Cancelling the current timer, if there is one
@@ -152,13 +153,14 @@ class TimeApp:
             except (ValueError, AttributeError):
                 pass
             self.reset_button.config(text="Reset", font=(self.font, self.button_size), fg="red",
-                                     command=self.stopwatch_reset, highlightbackground=self.window_color)
+                                     command=self.stopwatch_reset, highlightbackground=self.stopwatch_color)
             self.reset_button.grid(row=3, column=0)
             # Reconfiguring the Start/Stop Button for Stopwatch
             self.startstop_button.config(text="Start",
                                          fg="green", command=self.stopwatch_start,
-                                         highlightbackground=self.window_color)
+                                         highlightbackground=self.stopwatch_color)
             self.startstop_button.grid(row=3, column=1)
+            self.dropdown.config(bg=self.stopwatch_color)
 
     # Functions for Timer
     def cursor_in(self, event) -> None:
@@ -291,8 +293,9 @@ class TimeApp:
         else:
             # Otherwise, stop the timer when done
             self.timer_stop()
-            # # Notify user when their timer is up ("" used for text longer than one word)
-            # os.system(f"terminal-notifier -message \"Click Reset To Restart Timer!\" -subtitle \"Timer Has Reached 00:00:00\" -title \"Time's Up!\"")
+            # Make the window pop up when the timer is done
+            self.window.deiconify()
+            self.window.focus_force()
             # To play the alarm sound when the timer reaches 00:00:00
             self.sound = playsound(resource_path("assets/timer_alarm.mp3"), block=False)
 

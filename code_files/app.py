@@ -1,11 +1,15 @@
-# Imported Files
+# Standard Library Imports
+import math
+
+# Third Party Imports
+import tkinter as tk
+
+from PIL import Image, ImageTk
+from playsound3 import playsound
+
+# Local Application Imports
 from util import resource_path
 
-# Imported Modules
-import tkinter as tk
-import math
-from playsound3 import playsound
-from PIL import Image, ImageTk
 
 # General Class with attributes used for both time tools
 class TimeApp:

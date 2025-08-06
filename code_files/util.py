@@ -1,5 +1,7 @@
-import sys
+# Standard Library Imports
 import os
+import sys
+
 
 def resource_path(relative_path):
     """

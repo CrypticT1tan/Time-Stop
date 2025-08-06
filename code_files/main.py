@@ -1,4 +1,4 @@
-# Imported Files
+# Local Application Imports
 from app import TimeApp
 
 # Makes sure this is the main file being run and not an import being used in another file (for terminal scripts)

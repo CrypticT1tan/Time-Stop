@@ -84,6 +84,8 @@ class TimeApp:
         self.dropdown.config(bg=self.timer_color)
 
         # Used later in program for timer display and alarm sound respectively
+        self.centi_left = 0 # centiseconds on the current timer
+        self.centi_total = 0 # total number of centiseconds for the timer
         self.timer = None
         self.sound = None
         # Used for stopwatch display
@@ -220,10 +222,15 @@ class TimeApp:
                             if not hr_count == min_count == sec_count == 0:
                                 # Only allow start button to change to stop if not 00:00:00
                                 self.startstop_button.config(text="Stop", fg="red")
-                            # Calculate second total
-                            sec_total = sec_count + min_count * 60 + hr_count * 3600
+                            if self.centi_total == 0:
+                                # Calculate centisecond total (with a slight 99 centisecond delay at start to display the timer total)
+                                centi_total = (sec_count + min_count * 60 + hr_count * 3600) * 100 + self.centi_left + 99
+                                self.centi_total = centi_total
+                            else:
+                                # Calculate centisecond total (no delay at all)
+                                centi_total = (sec_count + min_count * 60 + hr_count * 3600) * 100 + self.centi_left
                             # Send sec_total to timer_count, where the countdown begins
-                            self.timer_count(sec_total)
+                            self.timer_count(centi_total)
                     except UnboundLocalError:
                         pass
 
@@ -272,26 +279,21 @@ class TimeApp:
         except AttributeError:
             pass
 
-    def timer_count(self, sec_total) -> None:
+    def timer_count(self, centi_total) -> None:
         """
         Function for the timer display and update in real time
-        :param sec_total: total number of seconds to count down from
+        :param centi_total: total number of centiseconds to count down from
         """
-        curr_sec = sec_total % 60 # Number of seconds, limited by 60
-        curr_min = math.floor(sec_total / 60) % 60 # Number of minutes, limited by 60
-        curr_hr = math.floor(sec_total/ 3600) % 100 # Number of hours, limited by 100
+        self.centi_left = centi_total % 100 # Number of centiseconds, limited by 100
+        curr_sec = math.floor(centi_total / 100) % 60 # Number of seconds, limited by 60
+        curr_min = math.floor(centi_total / 6000) % 60 # Number of minutes, limited by 60
+        curr_hr = math.floor(centi_total / 360000) % 100 # Number of hours, limited by 100
         # Deal with cases where secs, mins, or hrs less than 10 (need 0 in front)
-        if curr_sec < 10:
-            curr_sec = f"0{curr_sec}"
-        if curr_min < 10:
-            curr_min = f"0{curr_min}"
-        if curr_hr < 10:
-            curr_hr = f"0{curr_hr}"
-        self.display.config(text=f"{curr_hr}:{curr_min}:{curr_sec}")
+        self.display.config(text=f"{curr_hr:02d}:{curr_min:02d}:{curr_sec:02d}")
         # As long as timer display doesn't show 00:00:00, create timer
         if self.display.cget("text") != "00:00:00":
             try:
-                self.timer = self.window.after(1000, self.timer_count, sec_total - 1)
+                self.timer = self.window.after(10, self.timer_count, centi_total - 1)
             except ValueError:
                 pass
         else:
@@ -354,12 +356,6 @@ class TimeApp:
         curr_sec = math.floor(curr_time / 100) % 60 # Number of seconds, limited by 60
         curr_min = math.floor(curr_time / 6000) % 100 # Number of minutes, limited by 100
         # Dealing with cs, sec, and min values less than 10 (need a 0 in front)
-        if curr_cs < 10:
-            curr_cs = f"0{curr_cs}"
-        if curr_sec < 10:
-            curr_sec = f"0{curr_sec}"
-        if curr_min < 10:
-            curr_min = f"0{curr_min}"
-        self.display.config(text=f"{curr_min}:{curr_sec}.{curr_cs}")
+        self.display.config(text=f"{curr_min:02d}:{curr_sec:02d}.{curr_cs:02d}")
         # Setting the stopwatch attribute to continuously increasing the stopwatch time by 1 every centisecond
         self.stopwatch = self.window.after(10, self.stopwatch_count, curr_time + 1)
